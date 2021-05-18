@@ -15,12 +15,14 @@ const webpackConfig = require('./webpack.config.js');
 const compiler = webpack(webpackConfig);
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, '.dist/views'));
+// app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
 app.use(
   webpackDevMiddleware(compiler, {
     publicPath: webpackConfig.output.publicPath,
+    writeToDisk: true,
   }),
 );
 
