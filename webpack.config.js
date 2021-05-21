@@ -1,10 +1,14 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const LiveReloadPlugin = require('webpack-livereload-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
 module.exports = {
-  entry: ['webpack-hot-middleware/client?reload=true', './src/index.ts'],
+  target: 'web',
+  entry: ['./src/index.ts', 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true'],
+  // entry: ['./src/index.ts'],
   mode: 'development',
   module: {
     rules: [
@@ -12,6 +16,10 @@ module.exports = {
         test: /\.tsx?$/,
         use: 'ts-loader',
         exclude: /node_modules/,
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
     ],
   },
@@ -23,13 +31,8 @@ module.exports = {
     path: path.resolve(__dirname, '.dist'),
     publicPath: '/.dist',
   },
-  devServer: {
-    hot: true,
-    watchContentBase: true,
-  },
   plugins: [
     new CleanWebpackPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       title: 'Hot Module Replacementjj',
       template: './src/index.html',
@@ -45,6 +48,11 @@ module.exports = {
       template: 'src/views/index.hbs',
       filename: './views/index.hbs',
       scriptLoading: 'blocking',
+    }),
+    new MiniCssExtractPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new LiveReloadPlugin({
+      appendScriptTag: true,
     }),
   ],
 };

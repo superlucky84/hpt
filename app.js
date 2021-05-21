@@ -7,22 +7,21 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-
 const app = express();
 const webpackConfig = require('./webpack.config.js');
 const compiler = webpack(webpackConfig);
 
+const indexRouter = require('./routes/index')(compiler);
+const usersRouter = require('./routes/users');
+
 // view engine setup
-app.set('views', path.join(__dirname, '.dist/views'));
-// app.set('views', path.join(__dirname, 'views'));
+// app.set('views', path.join(__dirname, '.dist/views'));
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
 app.use(
   webpackDevMiddleware(compiler, {
     publicPath: webpackConfig.output.publicPath,
-    writeToDisk: true,
   }),
 );
 
