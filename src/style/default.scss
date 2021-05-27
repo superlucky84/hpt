@@ -12,9 +12,7 @@ body {
   background: linear-gradient(red, green);
 }
 
-a {
-  transition: transform 1s
-}
+a { transition: transform 1s; }
 
 ::placeholder {
   color: gray;

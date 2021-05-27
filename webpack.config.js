@@ -1,5 +1,6 @@
 const path = require('path');
 const ESLintPlugin = require('eslint-webpack-plugin');
+const StylelintPlugin = require('stylelint-webpack-plugin');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const LiveReloadPlugin = require('webpack-livereload-plugin');
@@ -56,6 +57,9 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new LiveReloadPlugin({
       appendScriptTag: true,
+    }),
+    new StylelintPlugin({
+      files: 'src/**/*.scss',
     }),
     new ESLintPlugin({
       files: 'src/**/*.ts',
