@@ -16,6 +16,7 @@ function makeTypingGame() {
 
   document.getElementById('buttona').addEventListener('click', () => {
     document.body.style.backgroundColor = 'green';
+    document.getElementById('buttonk').style.backgroundColor = 'red';
   });
 }
 makeTypingGame();

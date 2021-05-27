@@ -1,4 +1,5 @@
 const path = require('path');
+const ESLintPlugin = require('eslint-webpack-plugin');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const LiveReloadPlugin = require('webpack-livereload-plugin');
@@ -7,9 +8,11 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
 module.exports = {
   target: 'web',
-  entry: ['./src/index.ts', 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true'],
+  // entry: ['./src/index.ts', 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true'],
+  entry: ['./src/index.ts'],
   // entry: ['./src/index.ts'],
-  mode: 'development',
+  mode: 'production',
+  devtool: 'source-map',
   module: {
     rules: [
       {
@@ -27,7 +30,7 @@ module.exports = {
     extensions: ['.tsx', '.ts', '.js'],
   },
   output: {
-    filename: 'bundle[hash].js',
+    filename: 'bundle[fullhash].js',
     path: path.resolve(__dirname, '.dist'),
     publicPath: '/.dist',
   },
@@ -53,6 +56,9 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new LiveReloadPlugin({
       appendScriptTag: true,
+    }),
+    new ESLintPlugin({
+      files: 'src/**/*.ts',
     }),
   ],
 };
