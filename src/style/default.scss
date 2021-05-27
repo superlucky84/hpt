@@ -7,3 +7,15 @@ body {
   background-color: red;
 }
 
+.a {
+  display: flex;
+  background: linear-gradient(red, green);
+}
+
+a {
+  transition: transform 1s
+}
+
+::placeholder {
+  color: gray;
+}
