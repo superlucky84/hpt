@@ -12,14 +12,16 @@ module.exports = {
   // entry: ['./src/index.ts', 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true'],
   entry: ['./src/index.ts'],
   // entry: ['./src/index.ts'],
-  mode: 'production',
+  mode: 'development',
   devtool: 'source-map',
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        use: 'ts-loader',
         exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+        },
       },
       {
         test: /\.s[ac]ss$/i,
@@ -32,8 +34,8 @@ module.exports = {
   },
   output: {
     filename: 'bundle[fullhash].js',
-    path: path.resolve(__dirname, '.dist'),
-    publicPath: '/.dist',
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/dist',
   },
   plugins: [
     new CleanWebpackPlugin(),

@@ -1,8 +1,10 @@
 import jj from './module';
 import './style/default.scss';
 
+console.log(jj);
+
 function makeTypingGame2() {
-  jj();
+  Object.assign({}, {j: '3'});
   document.body.style.backgroundColor = 'blue';
 }
 
